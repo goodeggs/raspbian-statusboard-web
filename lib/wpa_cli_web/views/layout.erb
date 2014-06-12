@@ -1,14 +1,61 @@
 <html>
   <head>
-    <title>Wi-Fi Configuration</title>
+    <title><%= product_name %></title>
     <link rel="stylesheet" href="/bower_components/house-style/house-style.min.css">
     <style type="text/css">
       table {
         width: 100%;
       }
 
+      .btn {
+        padding: 0; // reset
+      }
+
+      a.btn {
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
+      }
+
       .hostname {
         text-align: right;
+      }
+
+      .home .intro {
+        margin-top: 2em;
+        text-align: center;
+      }
+
+      .home-buttons {
+        margin-top: 2em;
+      }
+
+      .home-buttons .btn {
+        display: block;
+        padding: 0.75em 0;
+        font-size: 150%;
+        height: auto;
+        background: #e70;
+      }
+
+      .btn-secondary {
+        background: #666;
+      }
+
+      .btn + .btn {
+        margin-left: .5em;
+      }
+
+      .home-buttons .btn i {
+        font-style: normal;
+        font-size: 250%;
+        display: block;
+        padding: .25em 0;
+        color: #fff;
+      }
+
+      body {
+        background: #fff;
       }
     </style>
   </head>
@@ -21,14 +68,7 @@
         <div class="hostname grid-col grid-4"><%= @host %></div>
       </div><!-- .grid -->
     </header>
-    <div class="grid">
-      <div class="project-header with-border grid-col grid-12 clearfix">
-        <div>
-          Wi-Fi Configuration
-        </div>
-      </div>
-    </div><!-- .grid -->
-    <div class="grid grid-bleed grid-internal-padding panel-border">
+    <div class="grid grid-bleed grid-internal-padding">
     <%= yield %>
     </div>
   <script src="/bower_components/reqwest/reqwest.min.js"></script>

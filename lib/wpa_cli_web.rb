@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'wpa_cli_ruby'
 require_relative 'wpa_cli_web/access_point_list'
+require_relative 'wpa_cli_web/default_file'
 
 class WpaCliWeb < Sinatra::Base
   include WpaCliRuby
@@ -21,15 +22,20 @@ class WpaCliWeb < Sinatra::Base
     set :views,             File.expand_path(File.join(File.dirname(__FILE__), 'wpa_cli_web', 'views'))
     set :wpa_cli_client,    wpa_cli_client
     set :access_point_list, AccessPointList.new(settings.wpa_cli_client)
+    set :default_file,      DefaultFile.new(ENV['STATUSBOARD_DEFAULT_FILE'])
   end
 
   helpers do
     def product_name
-      ENV['APPLICATION_NAME'] || ENV['application_name'] || "Raspberry Pi Wi-Fi"
+      ENV['APPLICATION_NAME'] || ENV['application_name'] || "Raspbian Statusboard"
     end
 
     def wpa_cli_client
       settings.wpa_cli_client
+    end
+
+    def default_file
+      settings.default_file
     end
   end
 
@@ -38,7 +44,18 @@ class WpaCliWeb < Sinatra::Base
   end
 
   get '/' do
-    redirect '/access_points'
+    erb :home
+  end
+
+  get '/url' do
+    erb :url_edit
+  end
+
+  put '/url' do
+    url = params[:url]
+    settings.default_file.set_url url
+    settings.default_file.save
+    redirect '/restart'
   end
 
   get '/access_points' do
@@ -79,7 +96,7 @@ class WpaCliWeb < Sinatra::Base
     wpa_cli_client.set_network(id, "disabled", 0)
     wpa_cli_client.save_config
 
-    redirect "/restart"
+    redirect '/restart'
   end
 
   get '/restart' do
