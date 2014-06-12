@@ -1,26 +1,27 @@
-# WpaCliWeb
+# raspbian-statusboard-web
 
-This gem provides a web interface for configuring Wifi connections on
-systems that include the `wpa_cli` command line interface to the
-`wpa_supplicant` tool. It was written to allow configuration of the
-Wifi on a Raspberry Pi when a keyboard and monitor is difficult to
-connect (in embedded applications for example).
+This gem provides a web interface for configuring a [raspbian-statusboard](https://github.com/goodeggs/raspbian-statusboard).  It is based heavily on [wpa_cli_web](https://github.com/radiodan/wifi-configuration), which is a web-based interface to the `wpa_cli` tool.
 
 ## Installation
 
-    $ gem install wpa_cli_web
+There is no published gem, so you must use [specific_install](https://github.com/rdp/specific_install).
+
+    $ gem install specific_install
+    $ gem specific_install https://github.com/goodeggs/raspbian-statusboard-web.git
 
 ## Usage
 
-    $ wpa_cli_web start
+    $ RAILS_ENV=production wpa_cli_web start
 
 This will start the web interface on the default port 3000. Run
 `wpa_cli_web -h` for further options.
 
-## Contributing
+## TODO
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+1. update gemspec, bin, etc to reflect the name change
+2. consider publishing the gem
+
+## Credits
+
+* https://github.com/radiodan/wifi-configuration
+
