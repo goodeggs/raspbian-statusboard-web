@@ -63,6 +63,7 @@ class WpaCliWeb < Sinatra::Base
     if request.xhr?
       erb :access_points_list, :layout => false
     else
+      wpa_cli_client.scan
       erb :access_points
     end
   end
